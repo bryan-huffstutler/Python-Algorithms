@@ -21,7 +21,7 @@ print(loop2())
 
 def loop1Rec(num,odd_sum):
     # Duplicate the loop1 function using recursion
-    if num <= 1 : #base of 1 because counting down from 20
+    if num <= 0 : #base of 0 because counting down from 20
         return odd_sum
     else: 
         if num % 2==1: #checks if number is odd
