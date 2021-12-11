@@ -22,21 +22,23 @@ class DoublyLinkedList:
             yield val
 
 
-    def size(self) -> int:
+    def size(self):
         # Returns the number of elements in the list
         return self.count
 
 
-    def addFirst(self, data) -> None:
+    def addFirst(self, data):
         # Add a node at the front of the list
         self.count += 1
         newNode = Node(data)
-        self.head.prev = newNode
-        newNode.next = self.head
-        newNode.prev = None
-        self.head = newNode
+        
+        if self.head :
+            self.head.prev = newNode
+            newNode.next = self.head
+        else:
+            self.head = newNode
 
-    def addLast(self, data) -> None:
+    def addLast(self, data):
         #Add a node at the end of the list
         self.count += 1
         newNode = Node(data)
@@ -65,7 +67,7 @@ class DoublyLinkedList:
         #     oldNode = self.__getitem__(index)
         #     oldNode.prev = newNode
             
-        if index > self.count:
+        if (index > self.count) and (index < 0):
             return
         if (index == self.count):
             self.addLast(data)
@@ -93,8 +95,11 @@ class DoublyLinkedList:
         while curr.next != None:
             if(curr.data == data):
                 return ind
-            ind += 1
-            curr = curr.next
+            else:
+                ind += 1
+                curr = curr.next
+        return -1
+
 
     def replace(self, data, temp):
         index = self.indexOf(temp)
@@ -200,7 +205,7 @@ class DoublyLinkedList:
         return myStr
     
 items = DoublyLinkedList()
-items.add("May")
+items.addFirst("May")
 items.add("the")
 items.add("force")
 items.add("be")
