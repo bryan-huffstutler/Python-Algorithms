@@ -46,30 +46,27 @@
     
 class Queue:
   def __init__ (self):
-    self.items = []
-    self.size = 0
+    self.que = []
   
   def enqueue(self, data):
-    self.items.insert(0, data)
-    self.size += 1
+    self.que.insert(0, data)
     
   def dequeue(self):
-    data = self.items.pop()
-    self.size -= 1 
+    data = self.que.pop()
     return data
   
   def size (self):
-    return self.size
+    return len(self.que)
   
   def isEmpty (self):
-    if(len(self.items) < 1): 
+    if(len(self.que) < 1): 
       return True
     else: 
       return False
   
   def peek(self):
-    if(len(self.items) > 0):
-      return self.items[0]
+    if(len(self.que) > 0):
+      return self.que[0]
     else:
       return None
     
@@ -93,4 +90,26 @@ class Stack:
     else: 
       return True
     
+  def peek(self):
+    if (len(self.stack) > 0):
+      return self.stack[0]
+    else:
+      return None
+    
+def isPalindrome (data) :
+  stackList = Stack()
+  queList = Queue()
+  def splitChar(string):
+    return [char for char in string]
+  splitData = splitChar(data)
+  stackList.add(splitData)
+  queList.enqueue(splitData)
+  for item in stackList.stack:
+    for que in queList.que:
+      if stackList.stack[item] != queList.que[que] :
+        return print(False)
+      else:
+        if len(stackList.stack) == 0 & len(queList.que) == 0 :
+          return True
   
+isPalindrome('kayak')
