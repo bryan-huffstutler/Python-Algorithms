@@ -29,14 +29,13 @@ class Stack:
     self.stack = []
     self.top = None
   
-  def add (self, data):
+  def push (self, data):
     self.stack.insert(0, data)
     self.top = data
     
   def popTop (self):
-    self.stack.pop(0)
     if(len(self.stack) != 0):
-      self.top = self.stack[0]
+      return self.stack.pop(0)
     else:
       return None
     
@@ -58,31 +57,38 @@ class Stack:
 def isPalindrome (data) :
   stack = Stack()
   que = Queue()
-  def splitChar(string):
-    return [char for char in string]
-  splitData = splitChar(data)
-  for x in splitData:
-    stack.add(x)
+  for x in data:
+    stack.push(x)
     que.enqueue(x)
   
-  for x in stack.stack:
-    if((stack.isEmpty() != True)):
-        if (x == que.peek()):
-          stack.popTop()
-          que.dequeue()
-          if(len(stack.stack) % 2 == 0):
-            return print(True)
-          else:
-            continue
-        else:
-          return print(False)
-    else:
-      return print(True)
+  while stack.isEmpty() != True:
+    x = stack.peek()
+    y = que.peek()
+    if(x == y):
+      stack.popTop()
+      que.dequeue()
+    else: 
+      return False
+  return True
+  
+  # for x in stack.stack:
+  #   if((stack.isEmpty() != True)):
+  #       if (x == que.peek()):
+  #         stack.popTop()
+  #         que.dequeue()
+  #         if(len(stack.stack) % 2 == 0):
+  #           return True
+  #         else:
+  #           continue
+  #       else:
+  #         return False
+  #   else:
+  #     return True
     
-isPalindrome('racecar')
-isPalindrome('noon')
-isPalindrome('python')
-isPalindrome('madam')
+print(isPalindrome('racecar'))
+print(isPalindrome('noon'))
+print(isPalindrome('python'))
+print(isPalindrome('madam'))
 
 
 #Expected Output
