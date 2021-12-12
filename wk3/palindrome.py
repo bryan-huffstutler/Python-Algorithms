@@ -6,7 +6,7 @@ class Queue:
     self.que.insert(0, data)
     
   def dequeue(self):
-    data = self.que.pop(0)
+    data = self.que.pop()
     return data
   
   def size (self):
@@ -20,7 +20,7 @@ class Queue:
   
   def peek(self):
     if(len(self.que) > 0):
-      return self.que[0]
+      return self.que[-1]
     else:
       return None
     
@@ -35,7 +35,10 @@ class Stack:
     
   def popTop (self):
     self.stack.pop(0)
-    self.top = self.stack[0]
+    if(len(self.stack) != 0):
+      self.top = self.stack[0]
+    else:
+      return None
     
   def size (self):
     return len(self.stack)
@@ -53,38 +56,59 @@ class Stack:
       return None
     
 def isPalindrome (data) :
-  stackList = Stack()
-  queList = Queue()
+  stack = Stack()
+  que = Queue()
   def splitChar(string):
     return [char for char in string]
   splitData = splitChar(data)
   for x in splitData:
-    queList.enqueue(x)
-    stackList.add(x)
-
-  for x in stackList.stack:
-    if((stackList.isEmpty() != True)):
-        if (x == queList.peek()):
-          stackList.popTop()
-          queList.dequeue()
-          print(queList.que, stackList.stack)
+    stack.add(x)
+    que.enqueue(x)
+  
+  for x in stack.stack:
+    if((stack.isEmpty() != True)):
+        if (x == que.peek()):
+          stack.popTop()
+          que.dequeue()
+          if(len(stack.stack) % 2 == 0):
+            return print(True)
+          else:
+            continue
         else:
           return print(False)
     else:
       return print(True)
-      
-      
-   
-  
-  
-  
-# isPalindrome('racecar')
+    
+isPalindrome('racecar')
 isPalindrome('noon')
-# isPalindrome('python')
-# isPalindrome('madam')
+isPalindrome('python')
+isPalindrome('madam')
+
 
 #Expected Output
 #True
 #True
 #False
 #True
+
+
+
+
+  # for x in que.que:
+  #   if(x == stack.top):
+  #     stack.popTop()
+  #   else: 
+  #     return print(False)
+  # return print(True)
+  
+  
+# def isPalindrome(n):
+#   if n == n[::-1]:
+#     print("This word is palindrome")
+#   else:
+#     print("This word is not palindrome")
+
+   
+  
+  
+  
