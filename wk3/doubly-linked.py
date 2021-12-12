@@ -37,6 +37,7 @@ class DoublyLinkedList:
             newNode.next = self.head
         else:
             self.head = newNode
+            self.tail = newNode #now sets tail to equal newNode as well
 
     def addLast(self, data):
         #Add a node at the end of the list
@@ -51,22 +52,6 @@ class DoublyLinkedList:
             self.tail = newNode
 
     def addAtIndex(self, data, index):
-        # Add a node to the list at the given index position
-        # If index equals to the length of linked list, the node will be appended to the end of linked list
-        # If index is greater than the length, the data will not be inserted.
-        # This function does not replace the data at the index, but pushes everything else down.
-        # newNode = Node(data)
-        # if (index > (self.count-1)):
-        #     return
-        # elif (index == (self.count-1)):
-        #     newNode.prev = self.tail
-        #     newNode.next = None
-        #     self.tail = newNode
-        #     self.count += 1
-        # else:
-        #     oldNode = self.__getitem__(index)
-        #     oldNode.prev = newNode
-            
         if (index > self.count) and (index < 0):
             return
         if (index == self.count):
@@ -103,28 +88,34 @@ class DoublyLinkedList:
 
     def replace(self, data, temp):
         index = self.indexOf(temp)
-        node = Node(data)
-        if (index > (self.count - 1)):
-            return
-        if (index == (self.count -1)):
-            self.addLast(data)
-            return
-        if index == 0:
-            self.addFirst(data)
-            return
-        curr = self.head
-        prev = self.head
+        
+        current = self.head
         for n in range(index):
-            prev = curr
-            curr = curr.next        
-        prev.next = node
-        node.prev = prev
-        node.next = curr
-        curr.prev = node
-        next = curr.next
-        curr = curr.prev
-        curr.next = next
-        return
+            current = current.next
+        current.data = data
+        
+        # node = Node(data)
+        # if (index > (self.count - 1)):
+        #     return
+        # if (index == (self.count -1)):
+        #     self.addLast(data)
+        #     return
+        # if index == 0:
+        #     self.addFirst(data)
+        #     return
+        # curr = self.head
+        # prev = self.head
+        # for n in range(index):
+        #     prev = curr
+        #     curr = curr.next        
+        # prev.next = node
+        # node.prev = prev
+        # node.next = curr
+        # curr.prev = node
+        # next = curr.next
+        # curr = curr.prev
+        # curr.next = next
+        # return
 
     def add(self, data) -> None:
         # Append an item to the end of the list
