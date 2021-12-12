@@ -35,7 +35,7 @@ class Stack:
     
   def popTop (self):
     if(len(self.stack) != 0):
-      return self.stack.pop(0)
+      return self.stack.pop(0) #Now returns the popped element
     else:
       return None
     
@@ -60,8 +60,8 @@ def isPalindrome (data) :
   for x in data:
     stack.push(x)
     que.enqueue(x)
-  
-  while stack.isEmpty() != True:
+  #no longer accessing the underlying data structure
+  while stack.isEmpty() != True: 
     x = stack.peek()
     y = que.peek()
     if(x == y):
@@ -70,20 +70,6 @@ def isPalindrome (data) :
     else: 
       return False
   return True
-  
-  # for x in stack.stack:
-  #   if((stack.isEmpty() != True)):
-  #       if (x == que.peek()):
-  #         stack.popTop()
-  #         que.dequeue()
-  #         if(len(stack.stack) % 2 == 0):
-  #           return True
-  #         else:
-  #           continue
-  #       else:
-  #         return False
-  #   else:
-  #     return True
     
 print(isPalindrome('racecar'))
 print(isPalindrome('noon'))
@@ -96,25 +82,3 @@ print(isPalindrome('madam'))
 #True
 #False
 #True
-
-
-
-
-  # for x in que.que:
-  #   if(x == stack.top):
-  #     stack.popTop()
-  #   else: 
-  #     return print(False)
-  # return print(True)
-  
-  
-# def isPalindrome(n):
-#   if n == n[::-1]:
-#     print("This word is palindrome")
-#   else:
-#     print("This word is not palindrome")
-
-   
-  
-  
-  
