@@ -8,12 +8,30 @@ def quick_sort(a_list, start, end):
 
     # Call the partition helper function to split the list into two section 
     # divided between a pivot point
-    pivot = partitionStart(a_list, start, end)
+    pivot = partitionMiddle(a_list, start, end)
+
     quick_sort(a_list, start, pivot-1)
     quick_sort(a_list, pivot+1, end)
         
 
 def partitionStart(a_list, start, end):
+    return partition(a_list, start, end)
+
+def partitionRandom(a_list, start, end):
+    # Generates a random number between the range of the start and end
+    randomPivot = random.randrange(start, end)
+    # Switches the start and randomPivot positions in the list
+    a_list[start] , a_list[randomPivot] = a_list[randomPivot], a_list[start]
+    return partition(a_list, start, end)
+
+def partitionEnd(a_list, start, end):
+    # Switches the start and end positions
+    a_list[start] , a_list[end] = a_list[end], a_list[start]
+    return partition(a_list, start, end)
+
+def partitionMiddle(a_list, start, end):
+    # Switches start with middle
+    a_list[start], a_list[(start+end)//2] = a_list[(start+end)//2], a_list[start]
     return partition(a_list, start, end)
 
 def partition(a_list, start, end):
@@ -52,19 +70,18 @@ def partition(a_list, start, end):
 
     return high
 
-
 print("Quick Sort:")
-#myList = [54,26,93,17,77,31]
+# myList = [54,26,93,17,77,31]
 myList = [x for x in range(1000)]
 random.shuffle(myList)
 
-#print(myList)
+print(myList)
 start_time = time.time()
 quick_sort(myList,0,len(myList)-1)
 end_time = time.time()
-#print()
-#print("Sorted Listed: ")
-#print(myList)   
+
+print("Sorted Listed: ")
+print(myList)   
 
 print(f"The execution time is: {end_time-start_time}")
 
