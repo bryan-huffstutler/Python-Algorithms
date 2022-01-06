@@ -8,12 +8,48 @@ def quick_sort(a_list, start, end):
 
     # Call the partition helper function to split the list into two section 
     # divided between a pivot point
+    pivot = partitionStart(a_list, start, end)
+
+    quick_sort(a_list, start, pivot-1)
+    quick_sort(a_list, pivot+1, end)
+        
+def quick_sort_random(a_list, start, end):
+    # list size is 1 or less (which doesn't make sense)
+    if start >= end:
+        return
+
+    # Call the partition helper function to split the list into two section 
+    # divided between a pivot point
+    pivot = partitionRandom(a_list, start, end)
+
+    quick_sort(a_list, start, pivot-1)
+    quick_sort(a_list, pivot+1, end)
+        
+def quick_sort_end(a_list, start, end):
+    # list size is 1 or less (which doesn't make sense)
+    if start >= end:
+        return
+
+    # Call the partition helper function to split the list into two section 
+    # divided between a pivot point
+    pivot = partitionEnd(a_list, start, end)
+
+    quick_sort(a_list, start, pivot-1)
+    quick_sort(a_list, pivot+1, end)
+        
+def quick_sort_middle(a_list, start, end):
+    # list size is 1 or less (which doesn't make sense)
+    if start >= end:
+        return
+
+    # Call the partition helper function to split the list into two section 
+    # divided between a pivot point
     pivot = partitionMiddle(a_list, start, end)
 
     quick_sort(a_list, start, pivot-1)
     quick_sort(a_list, pivot+1, end)
         
-
+        
 def partitionStart(a_list, start, end):
     return partition(a_list, start, end)
 
@@ -85,4 +121,47 @@ print(myList)
 
 print(f"The execution time is: {end_time-start_time}")
 
+print("Quick Sort (Random):")
+# myList = [54,26,93,17,77,31]
+myList = [x for x in range(1000)]
+random.shuffle(myList)
 
+print(myList)
+start_time_random = time.time()
+quick_sort_random(myList,0,len(myList)-1)
+end_time_random = time.time()
+
+print("Sorted Listed: ")
+print(myList)   
+
+print(f"The execution time is: {end_time_random-start_time_random}")
+
+print("Quick Sort (End):")
+# myList = [54,26,93,17,77,31]
+myList = [x for x in range(1000)]
+random.shuffle(myList)
+
+print(myList)
+start_time_end = time.time()
+quick_sort_end(myList,0,len(myList)-1)
+end_time_end = time.time()
+
+print("Sorted Listed: ")
+print(myList)   
+
+print(f"The execution time is: {end_time_end-start_time_end}")
+
+print("Quick Sort (Middle):")
+# myList = [54,26,93,17,77,31]
+myList = [x for x in range(1000)]
+random.shuffle(myList)
+
+print(myList)
+start_time_middle = time.time()
+quick_sort_middle(myList,0,len(myList)-1)
+end_time_middle = time.time()
+
+print("Sorted Listed: ")
+print(myList)   
+
+print(f"The execution time is: {end_time_middle-start_time_middle}")
