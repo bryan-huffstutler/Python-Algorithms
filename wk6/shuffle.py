@@ -5,6 +5,8 @@ def shuffle (arr) :
   #because it has to iterate through the list
   for i in range(len(arr)-1, 0, -1):
     #creates a random between 0, and i-1
+    # was i+1, changed to i-1 to address 
+    # the list index out of range error I would sometimes get
     x=random.randint(0, i-1)
     #sets a random index to equal the current index of for loop
     arr[i], arr[x] = arr[x], arr[i]
