@@ -49,7 +49,7 @@ def quick_sort_middle(a_list, start, end):
     quick_sort(a_list, start, pivot-1)
     quick_sort(a_list, pivot+1, end)
         
-        
+       # Why is this here? 
 def partitionStart(a_list, start, end):
     return partition(a_list, start, end)
 
