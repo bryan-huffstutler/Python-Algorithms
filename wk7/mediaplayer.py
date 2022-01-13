@@ -11,6 +11,12 @@ class Song:
 
     def getArtist(self):
         return self.artist
+    
+    def setTitle(self, title):
+        self.title = title
+        
+    def setArtist(self, artist):
+        self.artist = artist
         
     def __str__(self):
         return self.title + " by " + self.artist 
@@ -33,7 +39,6 @@ class PlayList:
         self.tail = None
         self.count = 0
         self.currentSong = None
-        self.currentPlaylist = []
         
     #Complete
     def addSongToList(self, title, artist):
@@ -41,21 +46,24 @@ class PlayList:
         if self.head is None:
             newSong = Song(title, artist)
             self.head = newSong
-            self.currentPlaylist.insert(0, newSong)
+            
         else:
             newSong = Song(title, artist)
             self.head.prev = newSong
             newSong.next = self.head
             newSong.prev = None
             self.head = newSong
-            self.currentPlaylist.insert(0, newSong)
+            
         self.setTail()
         
     #Complete
     def getSonglist (self):
-        for x in self.currentPlaylist:
-            print(x)
-    
+        temp = self.head
+        while temp:
+            print(temp.__str__())
+            temp=temp.next
+            #yield doesn't work
+            
     #Complete        
     def removeSong (self, title, artist):
         self.count -= 1
@@ -95,26 +103,43 @@ class PlayList:
     
     
     def shuffleSongs (self):
-        # newList = self.currentPlaylist
-        # for x in self.currentPlaylist:
-        #     num = random.randint(0, len(self.currentPlaylist)-1)
-        #     newList[num].title = x.title
-        #     newList[num].artist = x.artist 
-
-        # self.currentPlaylist = newList
-        # return self.getSonglist()
-        temp=self.head
-        while temp:
-            if temp is None:
-                return
-            tempList = self.currentPlaylist
-            num = random.randint(0, len(tempList)-1)
-            temp.artist = tempList[num].artist
-            temp.title = tempList[num].title
-            tempList.pop(num)
-            temp = temp.next
-        return self.getSonglist()
-    
+        current = self.head
+        # This code produces the not subscriptable error
+        # while current:
+        #     x = random.randint(0, self.count-1)
+        #     title, artist = playlist[x]
+        #     current.setArtist(artist)
+        #     current.setTitle(title)
+        #     current = current.next
+        
+        #This code produces the non-iterable error
+        # while current:
+        #     x = random.randint(0, self.count-1)
+        #     title, artist = current.next
+        #     current.setArtist(artist)
+        #     current.setTitle(title)
+        
+        #This code doesn't produce desired result, but no errors
+        while current:
+            x = random.randint(0, self.count-1)
+            if x > self.count//2:
+                if current.next is None:
+                    break
+                temp = current.next
+                tempartist = temp.artist
+                temptitle = temp.title
+            if x < self.count//2:
+                if current.prev is None:
+                    temp = self.tail
+                    tempartist = temp.artist
+                    temptitle = temp.title
+                tempartist = current.prev.artist 
+                temptitle = current.prev.title 
+            current.setArtist(tempartist)
+            current.setTitle(temptitle)
+            current = current.next
+            
+            
     #Complete
     def goBack (self):
         temp = self.currentSong
@@ -129,7 +154,11 @@ class PlayList:
         
     #Complete
     def setTail(self):
-        self.tail = self.currentPlaylist[len(self.currentPlaylist)-1]
+        temp = self.head
+        while temp:
+            if(temp.next is None):
+                self.tail = temp
+            temp = temp.next
     
     #Complete
     def showCurrentSong(self):
