@@ -186,12 +186,6 @@ class PlayList:
     def showCurrentSong(self):
         return self.currentSong
     
-    def iter(self):
-        current = self.head
-        while current:
-            val = current.data
-            current = current.next
-            yield val
     
 def menu():
     print(20 * "-" , "MENU" , 20 * "-")
