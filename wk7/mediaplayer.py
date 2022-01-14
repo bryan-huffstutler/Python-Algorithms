@@ -21,17 +21,17 @@ class Song:
     def __str__(self):
         return self.title + " by " + self.artist 
 
-    def __eq__(self, other):
-        return ((self.title, self.artist) == (other.title, other.artist))
+    # def __eq__(self, other):
+    #     return ((self.title, self.artist) == (other.title, other.artist))
         
-    def __ne__(self, other):
-        return not (self == other)
+    # def __ne__(self, other):
+    #     return not (self == other)
 
-    def __lt__(self, other):
-        return ((self.title, self.artist) < (other.title, other.artist))
+    # def __lt__(self, other):
+    #     return ((self.title, self.artist) < (other.title, other.artist))
         
-    def __gt__(self, other):
-        return ((self.title, self.artist) < (other.title, other.artist))
+    # def __gt__(self, other):
+    #     return ((self.title, self.artist) < (other.title, other.artist))
         
 class PlayList:
     def __init__(self):
@@ -101,9 +101,9 @@ class PlayList:
             self.currentSong = temp.next
             return self.currentSong
     
-    
+    #Complete
     def shuffleSongs (self):
-        current = self.head
+        # current = self.head
         # This code produces the not subscriptable error
         # while current:
         #     x = random.randint(0, self.count-1)
@@ -120,25 +120,47 @@ class PlayList:
         #     current.setTitle(title)
         
         #This code doesn't produce desired result, but no errors
-        while current:
+        # while current:
+        #     x = random.randint(0, self.count-1)
+        #     if x > self.count//2:
+        #         if current.next is None:
+        #             break
+        #         temp = current.next
+        #         tempartist = temp.artist
+        #         temptitle = temp.title
+        #     if x < self.count//2:
+        #         if current.prev is None:
+        #             temp = self.tail
+        #             tempartist = temp.artist
+        #             temptitle = temp.title
+        #         tempartist = current.prev.artist 
+        #         temptitle = current.prev.title 
+        #     current.setArtist(tempartist)
+        #     current.setTitle(temptitle)
+        #     current = current.next
+        
+        if self.head == None:
+            return;
+        current = self.head
+        while(current.next != None):
             x = random.randint(0, self.count-1)
-            if x > self.count//2:
-                if current.next is None:
-                    break
-                temp = current.next
-                tempartist = temp.artist
-                temptitle = temp.title
-            if x < self.count//2:
-                if current.prev is None:
-                    temp = self.tail
-                    tempartist = temp.artist
-                    temptitle = temp.title
-                tempartist = current.prev.artist 
-                temptitle = current.prev.title 
-            current.setArtist(tempartist)
+            swapNode = self.getAtIndex(x)
+            temptitle, tempartist = swapNode.getTitle(), swapNode.getArtist()
+            swapNode.setTitle(current.getTitle())
+            swapNode.setArtist(current.getArtist())
             current.setTitle(temptitle)
+            current.setArtist(tempartist)
             current = current.next
-            
+        self.getSonglist()
+        
+    #Complete
+    def getAtIndex (self, index):
+        if index > self.count-1:
+            raise Exception("Index out of Range.")
+        current = self.head
+        for _ in range(index):
+            current = current.next
+        return current
             
     #Complete
     def goBack (self):
@@ -164,6 +186,12 @@ class PlayList:
     def showCurrentSong(self):
         return self.currentSong
     
+    def iter(self):
+        current = self.head
+        while current:
+            val = current.data
+            current = current.next
+            yield val
     
 def menu():
     print(20 * "-" , "MENU" , 20 * "-")
@@ -185,7 +213,7 @@ playlist.addSongToList('Broken', 'Seether')
 playlist.addSongToList('Teen Spirit', 'Nirvana')
 playlist.addSongToList('Returns', 'NF')
 playlist.addSongToList('Lucky You', 'Eminem')
-# print(playlist.tail)
+
 while True:
     menu()
     choice = int(input('What would you like to do? '))
