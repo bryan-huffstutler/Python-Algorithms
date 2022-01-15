@@ -39,7 +39,7 @@ class PlayList:
         self.tail = None
         self.count = 0
         self.currentSong = None
-        
+            
     #Complete
     def addSongToList(self, title, artist):
         self.count += 1
@@ -67,22 +67,31 @@ class PlayList:
     #Complete        
     def removeSong (self, title, artist):
         self.count -= 1
-        temp = self.head
+        current = self.head
         prev = self.head
         #if current song is being removed
-        if self.currentSong.title == title and self.currentSong.artist == artist:
-            self.currentSong = None
+        if self.currentSong != None:
+            if self.currentSong.title == title and self.currentSong.artist == artist:
+                self.currentSong = None
             
-        while temp:
-            if temp.title == title and temp.artist == artist:
-                if temp == self.head:
-                    temp.next.prev = None
-                    self.head = temp.next
-                else:
-                    prev.next = temp.next
-                    temp.next = prev
-            prev = temp
-            temp = temp.next
+        while current:
+                if current.title == title:
+                    if current == self.tail:
+                        print("Deleted", Song.__str__(current))
+                        prev.next = None
+                        self.tail = prev
+                    elif current == self.head:
+                        print("Deleted", Song.__str__(current))
+                        current.next.prev = None
+                        self.head = current.next
+                    else:
+                        print("Deleted", Song.__str__(current))
+                        prev.next = current.next
+                        current.next = prev
+                    self.count -= 1
+                    return
+                prev = current
+                current = current.next
     
     #Complete         
     def playSong(self):
@@ -103,42 +112,6 @@ class PlayList:
     
     #Complete
     def shuffleSongs (self):
-        # current = self.head
-        # This code produces the not subscriptable error
-        # while current:
-        #     x = random.randint(0, self.count-1)
-        #     title, artist = playlist[x]
-        #     current.setArtist(artist)
-        #     current.setTitle(title)
-        #     current = current.next
-        
-        #This code produces the non-iterable error
-        # while current:
-        #     x = random.randint(0, self.count-1)
-        #     title, artist = current.next
-        #     current.setArtist(artist)
-        #     current.setTitle(title)
-        
-        #This code doesn't produce desired result, but no errors
-        # while current:
-        #     x = random.randint(0, self.count-1)
-        #     if x > self.count//2:
-        #         if current.next is None:
-        #             break
-        #         temp = current.next
-        #         tempartist = temp.artist
-        #         temptitle = temp.title
-        #     if x < self.count//2:
-        #         if current.prev is None:
-        #             temp = self.tail
-        #             tempartist = temp.artist
-        #             temptitle = temp.title
-        #         tempartist = current.prev.artist 
-        #         temptitle = current.prev.title 
-        #     current.setArtist(tempartist)
-        #     current.setTitle(temptitle)
-        #     current = current.next
-        
         if self.head == None:
             return;
         current = self.head
@@ -200,7 +173,10 @@ def menu():
     print("0. Exit")
     print(47 * "-")
 
+#initiate the class
 playlist = PlayList()
+
+#add songs to playlist
 playlist.addSongToList('Enter Sandman', 'Metallica')
 playlist.addSongToList('Everyday', 'Logic')
 playlist.addSongToList('Broken', 'Seether')
@@ -220,7 +196,7 @@ while True:
         playlist.addSongToList(title, artist)
         print("New Song Added to Playlist")
     elif choice == 2:
-        # Prompt user for Song Title 
+        # Prompt user for Song Title and Artist
         title = input('What song would you like to delete? ')
         artist = input('What is the artist name? ')
         # remove song from playlist
