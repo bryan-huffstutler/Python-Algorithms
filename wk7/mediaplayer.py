@@ -58,10 +58,10 @@ class PlayList:
         
     #Complete
     def getSonglist (self):
-        temp = self.head
-        while temp:
-            print(temp.__str__())
-            temp=temp.next
+        current = self.head
+        while current:
+            print(current.__str__())
+            current = current.next
             #yield doesn't work
             
     #Complete        
@@ -100,14 +100,14 @@ class PlayList:
     
     #Complete
     def skipSong(self):
-        temp = self.currentSong
-        if temp is None:
+        current = self.currentSong
+        if current is None:
             return "No song currently playing...please play a song."
-        if temp.next is None:
+        if current.next is None:
             self.currentSong = self.head
             return self.head
         else:
-            self.currentSong = temp.next
+            self.currentSong = current.next
             return self.currentSong
     
     #Complete
@@ -137,23 +137,23 @@ class PlayList:
             
     #Complete
     def goBack (self):
-        temp = self.currentSong
-        if temp is None:
+        current = self.currentSong
+        if current is None:
             return "No song currently playing...please play a song."
-        if temp.prev is None:
+        if current.prev is None:
             self.currentSong = self.tail
             return self.currentSong
         else:
-            self.currentSong = temp.prev
+            self.currentSong = current.prev
             return self.currentSong
         
     #Complete
     def setTail(self):
-        temp = self.head
-        while temp:
-            if(temp.next is None):
-                self.tail = temp
-            temp = temp.next
+        current = self.head
+        while current:
+            if(current.next is None):
+                self.tail = current
+            current = current.next
     
     #Complete
     def showCurrentSong(self):
